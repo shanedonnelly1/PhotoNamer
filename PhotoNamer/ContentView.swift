@@ -15,7 +15,9 @@ struct ContentView: View {
         Image("apollo9"),
         Image("apollo10")
     ]
+    @State private var newImage: UIImage?
     @State private var showImagePicker = false
+    @State private var showNameImage = false
     
     let columns = [
         GridItem(.adaptive(minimum: 120))
@@ -35,9 +37,18 @@ struct ContentView: View {
         Button("Choose photo") {
             self.showImagePicker = true
         }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker()
+        .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
+            ImagePicker(image: self.$newImage)
         }
+//        .sheet(isPresented: $showNameImage) {
+//            EditPhotoName()
+//        }
+    }
+    
+    func loadImage() {
+        guard let newImage = newImage else { return }
+        images.append(Image(uiImage: newImage))
+        self.showNameImage = true
     }
 }
 
