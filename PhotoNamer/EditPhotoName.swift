@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditPhotoName: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var photoName = ""
+    @Binding var photoName: String
     
     var body: some View {
         NavigationView {
@@ -18,15 +18,17 @@ struct EditPhotoName: View {
                     TextField("Photo name", text: self.$photoName)
                 }
             }
+            .navigationBarItems(trailing: Button("Done") {
+                self.presentationMode.wrappedValue.dismiss()
+            })
         }
-        .navigationBarItems(trailing: Button("Done") {
-            self.presentationMode.wrappedValue.dismiss()
-        })
+
     }
 }
 
 struct EditPhotoName_Previews: PreviewProvider {
     static var previews: some View {
-        EditPhotoName()
+        EditPhotoName(photoName: .constant(""))
+            
     }
 }

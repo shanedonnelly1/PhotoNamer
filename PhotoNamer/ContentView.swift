@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var images: [Image] = [
-        Image("apollo1"),
-        Image("apollo7"),
-        Image("apollo8"),
-        Image("apollo9"),
-        Image("apollo10")
-    ]
+    // This should probably be an object that holds an array of photos
+    // and contains a method to save and load the names.
+    @State private var photos: [Photo] = []
     @State private var newImage: UIImage?
+    @State private var newImageName = ""
     @State private var showImagePicker = false
     @State private var showNameImage = false
     
@@ -26,13 +23,16 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(images.indices, id: \.self) { index in
-                    images[index]
+                ForEach(photos, id: \.name) { photo in
+                    photo.image?
                         .resizable()
                         .scaledToFit()
                 }
             }
             .padding(.horizontal)
+        }
+        .sheet(isPresented: $showNameImage, onDismiss: saveImage) {
+            EditPhotoName(photoName: self.$newImageName)
         }
         Button("Choose photo") {
             self.showImagePicker = true
@@ -40,15 +40,28 @@ struct ContentView: View {
         .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
             ImagePicker(image: self.$newImage)
         }
-//        .sheet(isPresented: $showNameImage) {
-//            EditPhotoName()
-//        }
+        .onAppear(perform: loadPhotos)
     }
     
     func loadImage() {
-        guard let newImage = newImage else { return }
-        images.append(Image(uiImage: newImage))
         self.showNameImage = true
+    }
+    
+    func saveImage() {
+        guard let newImage = newImage else { return }
+        var newPhoto = Photo(name: newImageName)
+        newPhoto.writeToSecureDirectory(uiImage: newImage)
+        photos.append(newPhoto)
+    }
+    
+    func loadPhotos() {
+        // Get all the file names from storage and create
+        // new photos for each of them.
+        photos.append(Photo(name: "apollo1"))
+        photos.append(Photo(name: "apollo7"))
+        photos.append(Photo(name: "apollo8"))
+        photos.append(Photo(name: "apollo9"))
+        photos.append(Photo(name: "apollo10"))
     }
 }
 
