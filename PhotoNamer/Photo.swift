@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Photo {
+struct Photo: Codable {
     var name: String
     var url: URL?
     

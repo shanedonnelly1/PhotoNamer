@@ -15,6 +15,9 @@
 		34BEEB3C2574EB6F00338A1D /* EditPhotoName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BEEB3B2574EB6F00338A1D /* EditPhotoName.swift */; };
 		34C3759D25763BCF00C5D86F /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C3759C25763BCF00C5D86F /* Photo.swift */; };
 		34C375A025763E6C00C5D86F /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C3759F25763E6C00C5D86F /* ImageSaver.swift */; };
+		34D10CC52578DDCF008F63EC /* PhotoCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D10CC42578DDCF008F63EC /* PhotoCollection.swift */; };
+		34D10CC82578DEF3008F63EC /* photos.json in Resources */ = {isa = PBXBuildFile; fileRef = 34D10CC72578DEF3008F63EC /* photos.json */; };
+		34D10CCB2578DFDC008F63EC /* Bundle-Decodeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D10CCA2578DFDC008F63EC /* Bundle-Decodeable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		34BEEB3B2574EB6F00338A1D /* EditPhotoName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoName.swift; sourceTree = "<group>"; };
 		34C3759C25763BCF00C5D86F /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		34C3759F25763E6C00C5D86F /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		34D10CC42578DDCF008F63EC /* PhotoCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollection.swift; sourceTree = "<group>"; };
+		34D10CC72578DEF3008F63EC /* photos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = photos.json; sourceTree = "<group>"; };
+		34D10CCA2578DFDC008F63EC /* Bundle-Decodeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodeable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,9 @@
 				34BEEB3B2574EB6F00338A1D /* EditPhotoName.swift */,
 				34C3759C25763BCF00C5D86F /* Photo.swift */,
 				34C3759F25763E6C00C5D86F /* ImageSaver.swift */,
+				34D10CC42578DDCF008F63EC /* PhotoCollection.swift */,
+				34D10CC72578DEF3008F63EC /* photos.json */,
+				34D10CCA2578DFDC008F63EC /* Bundle-Decodeable.swift */,
 			);
 			path = PhotoNamer;
 			sourceTree = "<group>";
@@ -138,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34D10CC82578DEF3008F63EC /* photos.json in Resources */,
 				34957CBB256FA32E0057883E /* Preview Assets.xcassets in Resources */,
 				34957CB8256FA32E0057883E /* Assets.xcassets in Resources */,
 			);
@@ -151,7 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				34957CC4256FA4160057883E /* ImagePicker.swift in Sources */,
+				34D10CCB2578DFDC008F63EC /* Bundle-Decodeable.swift in Sources */,
 				34C375A025763E6C00C5D86F /* ImageSaver.swift in Sources */,
+				34D10CC52578DDCF008F63EC /* PhotoCollection.swift in Sources */,
 				34957CB6256FA32D0057883E /* ContentView.swift in Sources */,
 				34957CB4256FA32D0057883E /* PhotoNamerApp.swift in Sources */,
 				34BEEB3C2574EB6F00338A1D /* EditPhotoName.swift in Sources */,

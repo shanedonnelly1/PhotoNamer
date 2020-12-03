@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     // This should probably be an object that holds an array of photos
     // and contains a method to save and load the names.
-    @State private var photos: [Photo] = []
+    @ObservedObject var photos = PhotoCollection()
     @State private var newImage: UIImage?
     @State private var newImageName = ""
     @State private var showImagePicker = false
@@ -23,7 +23,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(photos, id: \.name) { photo in
+                ForEach(photos.items, id: \.name) { photo in
                     photo.image?
                         .resizable()
                         .scaledToFit()
@@ -40,7 +40,7 @@ struct ContentView: View {
         .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
             ImagePicker(image: self.$newImage)
         }
-        .onAppear(perform: loadPhotos)
+//        .onAppear(perform: loadPhotos)
     }
     
     func loadImage() {
@@ -54,15 +54,15 @@ struct ContentView: View {
         photos.append(newPhoto)
     }
     
-    func loadPhotos() {
-        // Get all the file names from storage and create
-        // new photos for each of them.
-        photos.append(Photo(name: "apollo1"))
-        photos.append(Photo(name: "apollo7"))
-        photos.append(Photo(name: "apollo8"))
-        photos.append(Photo(name: "apollo9"))
-        photos.append(Photo(name: "apollo10"))
-    }
+//    func loadPhotos() {
+//        // Get all the file names from storage and create
+//        // new photos for each of them.
+//        photos.append(Photo(name: "apollo1"))
+//        photos.append(Photo(name: "apollo7"))
+//        photos.append(Photo(name: "apollo8"))
+//        photos.append(Photo(name: "apollo9"))
+//        photos.append(Photo(name: "apollo10"))
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
