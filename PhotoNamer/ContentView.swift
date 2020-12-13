@@ -17,28 +17,49 @@ struct ContentView: View {
     @State private var showNameImage = false
     
     let columns = [
-        GridItem(.adaptive(minimum: 120))
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(photos.items) { photo in
-                    photo.image?
-                        .resizable()
-                        .scaledToFit()
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
+                    ForEach(photos.items) { photo in
+                        HStack {
+                            ZStack(alignment: .bottomTrailing) {
+                                photo.image?
+                                    .resizable()
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 150)
+                                    .cornerRadius(10)
+                                Text(photo.name)
+                                    .font(.caption)
+                                    .fontWeight(.black)
+                                    .padding(8)
+                                    .foregroundColor(.white)
+                                    .offset(x: -5, y: -5)
+                            }
+                        }
+                        
+                    }
+                    
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
-        }
-        .sheet(isPresented: $showNameImage, onDismiss: saveImage) {
-            EditPhotoName(photoName: self.$newImageName)
-        }
-        Button("Choose photo") {
-            self.showImagePicker = true
-        }
-        .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
-            ImagePicker(image: self.$newImage)
+            .padding(.top, 5)
+            .sheet(isPresented: $showNameImage, onDismiss: saveImage) {
+                EditPhotoName(photoName: self.$newImageName)
+            }
+            .navigationBarTitle("Photo Namer", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button("Add") {
+                    self.showImagePicker = true
+                }
+                .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
+                    ImagePicker(image: self.$newImage)
+                }
+            )
         }
     }
     
@@ -56,7 +77,7 @@ struct ContentView: View {
         photos.append(newPhoto)
         self.newImageName = ""
     }
-
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

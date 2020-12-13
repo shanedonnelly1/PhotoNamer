@@ -27,7 +27,6 @@ class PhotoCollection: ObservableObject {
 
         let file = "photos.json"
         let url = self.getDocumentsDirectory().appendingPathComponent(file)
-//        print("url: \(url)")
         // Make sure file is there
         
         // Set a default empty array of items
@@ -38,27 +37,11 @@ class PhotoCollection: ObservableObject {
         }
 
         let decoder = JSONDecoder()
-//
         guard let decodedPhotos = try? decoder.decode([Photo].self, from: data) else {
             fatalError("Failed to decode \(file) from bundle.")
         }
-        
-        print("decodedPhotos: \(decodedPhotos.count)")
-        for photo in decodedPhotos {
-//            print("Name: \(photo.name)")
-//            print("URL: \(photo.url)")
-        }
-        
-//
+                
         self.items = decodedPhotos
-//        return
-        
-//        if let decoded = Bundle.main.decode(url.absoluteString) as [Photo]? {
-//            self.items = decoded
-//            return
-//        }
-        
-        
     }
     
     func append(_ item: Photo) {
