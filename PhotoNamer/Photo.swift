@@ -7,10 +7,18 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 struct Photo: Codable, Identifiable {
-    var name: String
     var id: UUID
+    var firstName: String
+    var lastName: String
+    var longitude: CLLocationDegrees?
+    var latitude: CLLocationDegrees?
+    
+    var name: String {
+        return ("\(firstName) \(lastName)")
+    }
     
     var image: Image? {
         let url = self.getDocumentsDirectory().appendingPathComponent("\(id).jpg")
@@ -23,14 +31,23 @@ struct Photo: Codable, Identifiable {
         return Image(uiImage: uiImage)
     }
     
-    init(name: String) {
-        self.id = UUID()
-        self.name = name
+    var location: CLLocationCoordinate2D? {
+        guard let latitude = self.latitude, let longitude = self.longitude else {
+            return nil
+        }
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    init(id: UUID, name: String) {
+    init(firstName: String, lastName: String) {
+        self.id = UUID()
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+    
+    init(id: UUID, firstName: String, lastName: String) {
         self.id = id
-        self.name = name
+        self.firstName = firstName
+        self.lastName = lastName
     }
     
     mutating func writeToSecureDirectory(uiImage: UIImage) {
@@ -41,5 +58,14 @@ struct Photo: Codable, Identifiable {
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+}
+
+extension Photo: Comparable {
+    static func < (lhs: Photo, rhs: Photo) -> Bool {
+        if lhs.lastName == rhs.lastName {
+            return lhs.firstName.lowercased() < rhs.firstName.lowercased()
+        }
+        return lhs.lastName.lowercased() < rhs.lastName.lowercased()
     }
 }

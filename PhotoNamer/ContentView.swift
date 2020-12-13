@@ -12,7 +12,8 @@ struct ContentView: View {
     // and contains a method to save and load the names.
     @ObservedObject var photos = PhotoCollection()
     @State private var newImage: UIImage?
-    @State private var newImageName = ""
+    @State private var newImageFirstName = ""
+    @State private var newImageLastName = ""
     @State private var showImagePicker = false
     @State private var showNameImage = false
     
@@ -26,30 +27,33 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
-                    ForEach(photos.items) { photo in
-                        HStack {
-                            ZStack(alignment: .bottomTrailing) {
-                                photo.image?
-                                    .resizable()
-                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 150)
-                                    .cornerRadius(10)
-                                Text(photo.name)
-                                    .font(.caption)
-                                    .fontWeight(.black)
-                                    .padding(8)
-                                    .foregroundColor(.white)
-                                    .offset(x: -5, y: -5)
-                            }
-                        }
-                        
+                    ForEach(photos.items.sorted()) { photo in
+                        NavigationLink(
+                            destination: PhotoDetails(photo: photo),
+                            label: {
+                                HStack {
+                                    ZStack(alignment: .bottomLeading) {
+                                        photo.image?
+                                            .resizable()
+                                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 150)
+                                            .cornerRadius(10)
+                                        Text(photo.name)
+                                            .font(.caption)
+                                            .fontWeight(.black)
+                                            .padding(8)
+                                            .foregroundColor(.white)
+                                            .offset(x: -5, y: -5)
+                                    }
+                                }
+                            })
                     }
                     
                 }
                 .padding(.horizontal)
             }
-            .padding(.top, 5)
+            .padding(.top, 15)
             .sheet(isPresented: $showNameImage, onDismiss: saveImage) {
-                EditPhotoName(photoName: self.$newImageName)
+                EditPhotoName(firstName: self.$newImageFirstName, lastName: self.$newImageLastName)
             }
             .navigationBarTitle("Photo Namer", displayMode: .inline)
             .navigationBarItems(
@@ -69,13 +73,11 @@ struct ContentView: View {
     
     func saveImage() {
         guard let newImage = newImage else { return }
-        if newImageName == "" {
-            newImageName = UUID().uuidString
-        }
-        var newPhoto = Photo(name: newImageName)
+        var newPhoto = Photo(firstName: newImageFirstName, lastName: newImageLastName)
         newPhoto.writeToSecureDirectory(uiImage: newImage)
         photos.append(newPhoto)
-        self.newImageName = ""
+        self.newImageFirstName = ""
+        self.newImageLastName = ""
     }
     
 }

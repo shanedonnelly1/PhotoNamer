@@ -9,13 +9,15 @@ import SwiftUI
 
 struct EditPhotoName: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var photoName: String
+    @Binding var firstName: String
+    @Binding var lastName: String
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Name the new photo:")) {
-                    TextField("Photo name", text: self.$photoName)
+                    TextField("First name", text: self.$firstName)
+                    TextField("Last name", text: self.$lastName)
                 }
             }
             .navigationBarItems(trailing: Button("Done") {
@@ -28,7 +30,7 @@ struct EditPhotoName: View {
 
 struct EditPhotoName_Previews: PreviewProvider {
     static var previews: some View {
-        EditPhotoName(photoName: .constant(""))
+        EditPhotoName(firstName: .constant(""), lastName: .constant(""))
             
     }
 }
