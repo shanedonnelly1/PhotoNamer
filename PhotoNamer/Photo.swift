@@ -8,24 +8,38 @@
 import Foundation
 import SwiftUI
 
-struct Photo: Codable {
+struct Photo: Codable, Identifiable {
     var name: String
-    var url: URL?
+    var id: UUID
     
     var image: Image? {
-        Image(uiImage: self.uiImage!)
+        let url = self.getDocumentsDirectory().appendingPathComponent("\(id).jpg")
+        
+        guard let uiImage = try? UIImage(data: Data(contentsOf: url)) else {
+            print("Error creating UIImage from url \(url)")
+            return nil
+        }
+        
+        return Image(uiImage: uiImage)
     }
     
-    var uiImage: UIImage? {
-        if let url = url {
-            return try? UIImage(data: Data(contentsOf: url))
-        } else {
-            return UIImage(named: name)
-        }
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
+    }
+    
+    init(id: UUID, name: String) {
+        self.id = id
+        self.name = name
     }
     
     mutating func writeToSecureDirectory(uiImage: UIImage) {
         let imageSaver = ImageSaver()
-        url = imageSaver.writeToSecureDirectory(uiImage: uiImage, name: name)
+        let _ = imageSaver.writeToSecureDirectory(uiImage: uiImage, name: id.uuidString)
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 }

@@ -10,19 +10,64 @@ import Foundation
 class PhotoCollection: ObservableObject {
     @Published var items = [Photo]() {
         didSet {
-            // Save
+            let encoder = JSONEncoder()
+            
+            if let encoded = try? encoder.encode(items) {
+                let url = self.getDocumentsDirectory().appendingPathComponent("photos.json")
+                print("URL: \(url)")
+                try? encoded.write(to: url, options: [.atomicWrite, .completeFileProtection])
+            } else {
+                // @TODO: Replace with proper error handling
+                fatalError("Error")
+            }
         }
     }
     
     init() {
-        if let decoded = Bundle.main.decode("photos.json") as [Photo]? {
-            self.items = decoded
-            return
+
+        let file = "photos.json"
+        let url = self.getDocumentsDirectory().appendingPathComponent(file)
+//        print("url: \(url)")
+        // Make sure file is there
+        
+        // Set a default empty array of items
+//        self.items = []
+        
+        guard let data = try? Data(contentsOf: url) else {
+            fatalError("Failed to load \(file) from bundle.")
         }
-        self.items = []
+
+        let decoder = JSONDecoder()
+//
+        guard let decodedPhotos = try? decoder.decode([Photo].self, from: data) else {
+            fatalError("Failed to decode \(file) from bundle.")
+        }
+        
+        print("decodedPhotos: \(decodedPhotos.count)")
+        for photo in decodedPhotos {
+//            print("Name: \(photo.name)")
+//            print("URL: \(photo.url)")
+        }
+        
+//
+        self.items = decodedPhotos
+//        return
+        
+//        if let decoded = Bundle.main.decode(url.absoluteString) as [Photo]? {
+//            self.items = decoded
+//            return
+//        }
+        
+        
     }
     
     func append(_ item: Photo) {
         self.items.append(item)
+    }
+    
+    // @TODO: This is a duplicate of the ImageSaver function.  Move to an extension
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 }
