@@ -14,7 +14,6 @@ class PhotoCollection: ObservableObject {
             
             if let encoded = try? encoder.encode(items) {
                 let url = self.getDocumentsDirectory().appendingPathComponent("photos.json")
-                print("URL: \(url)")
                 try? encoded.write(to: url, options: [.atomicWrite, .completeFileProtection])
             } else {
                 // @TODO: Replace with proper error handling
