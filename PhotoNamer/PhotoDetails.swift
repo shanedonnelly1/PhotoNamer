@@ -6,12 +6,26 @@
 //
 
 import SwiftUI
+import MapKit
+
+struct LocationPin: Identifiable {
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
+}
 
 struct PhotoDetails: View {
+    
     var photo: Photo
     @State private var newImageFirstName = ""
     @State private var newImageLastName = ""
     @State private var showNameImage = false
+    
+    var markers: [LocationPin] {
+        if let location = self.photo.location {
+            return [LocationPin(coordinate: location)]
+        }
+        return []
+    }
     
     var body: some View {
         VStack {
@@ -26,6 +40,18 @@ struct PhotoDetails: View {
                     .padding(16)
                     .foregroundColor(.white)
                     .offset(x: -5, y: -5)
+            }
+            if let location = self.photo.location {
+                VStack(alignment: .leading) {
+                    Text("Met")
+                        .font(.headline)
+                    
+                    Map(coordinateRegion: .constant(MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))), annotationItems: markers) { item in
+                        MapPin(coordinate: item.coordinate)
+                    }
+                }
+                .padding()
+                
             }
             Spacer()
         }

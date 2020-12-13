@@ -9,7 +9,8 @@ Day 77 Challenge from Hacking With SwiftUI
 * -Add detailed view-
 * -Allow editing of name-
 * Fix renaming
-* Add location
+* -Add finding location-
+* -Add displaying location-
 * -Make sure name is not too long-
 * Allow deleting of photos
 * Fix first image corner radius bug

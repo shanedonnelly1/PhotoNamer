@@ -19,6 +19,7 @@
 		34D10CCB2578DFDC008F63EC /* Bundle-Decodeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D10CCA2578DFDC008F63EC /* Bundle-Decodeable.swift */; };
 		7C13834A25869EAC00AF37A4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7C13834925869EAC00AF37A4 /* README.md */; };
 		7C13834E2586A0D600AF37A4 /* PhotoDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13834D2586A0D600AF37A4 /* PhotoDetails.swift */; };
+		7C1383542586B31E00AF37A4 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1383532586B31E00AF37A4 /* LocationFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		34D10CCA2578DFDC008F63EC /* Bundle-Decodeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodeable.swift"; sourceTree = "<group>"; };
 		7C13834925869EAC00AF37A4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7C13834D2586A0D600AF37A4 /* PhotoDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetails.swift; sourceTree = "<group>"; };
+		7C1383532586B31E00AF37A4 /* LocationFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			children = (
 				34957CB3256FA32D0057883E /* PhotoNamerApp.swift */,
 				34957CB5256FA32D0057883E /* ContentView.swift */,
+				7C1383532586B31E00AF37A4 /* LocationFetcher.swift */,
 				34957CB7256FA32E0057883E /* Assets.xcassets */,
 				34957CBC256FA32E0057883E /* Info.plist */,
 				34957CB9256FA32E0057883E /* Preview Content */,
@@ -165,6 +168,7 @@
 			files = (
 				34957CC4256FA4160057883E /* ImagePicker.swift in Sources */,
 				34D10CCB2578DFDC008F63EC /* Bundle-Decodeable.swift in Sources */,
+				7C1383542586B31E00AF37A4 /* LocationFetcher.swift in Sources */,
 				34C375A025763E6C00C5D86F /* ImageSaver.swift in Sources */,
 				34D10CC52578DDCF008F63EC /* PhotoCollection.swift in Sources */,
 				7C13834E2586A0D600AF37A4 /* PhotoDetails.swift in Sources */,

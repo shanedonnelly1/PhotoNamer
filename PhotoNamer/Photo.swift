@@ -50,6 +50,11 @@ struct Photo: Codable, Identifiable {
         self.lastName = lastName
     }
     
+    mutating func setLocation(location: CLLocationCoordinate2D) {
+        self.longitude = location.longitude
+        self.latitude = location.latitude
+    }
+    
     mutating func writeToSecureDirectory(uiImage: UIImage) {
         let imageSaver = ImageSaver()
         let _ = imageSaver.writeToSecureDirectory(uiImage: uiImage, name: id.uuidString)

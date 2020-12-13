@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var newImageLastName = ""
     @State private var showImagePicker = false
     @State private var showNameImage = false
+    let locationFetcher = LocationFetcher()
     
     let columns = [
         GridItem(.flexible()),
@@ -68,6 +69,7 @@ struct ContentView: View {
     }
     
     func loadImage() {
+        self.locationFetcher.start()
         self.showNameImage = true
     }
     
@@ -75,6 +77,9 @@ struct ContentView: View {
         guard let newImage = newImage else { return }
         var newPhoto = Photo(firstName: newImageFirstName, lastName: newImageLastName)
         newPhoto.writeToSecureDirectory(uiImage: newImage)
+        if let location = self.locationFetcher.lastKnownLocation {
+            newPhoto.setLocation(location: location)
+        }
         photos.append(newPhoto)
         self.newImageFirstName = ""
         self.newImageLastName = ""
