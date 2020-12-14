@@ -27,6 +27,7 @@ class PhotoCollection: ObservableObject {
         let file = "photos.json"
         let url = self.getDocumentsDirectory().appendingPathComponent(file)
         // Make sure file is there
+        print("url: \(url)")
         
         // Set a default empty array of items
 //        self.items = []

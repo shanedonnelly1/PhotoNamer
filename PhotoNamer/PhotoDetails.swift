@@ -19,6 +19,7 @@ struct PhotoDetails: View {
     @State private var newImageFirstName = ""
     @State private var newImageLastName = ""
     @State private var showNameImage = false
+    @EnvironmentObject var photos: PhotoCollection
     
     var markers: [LocationPin] {
         if let location = self.photo.location {
@@ -69,7 +70,6 @@ struct PhotoDetails: View {
     }
     
     func saveImageName() {
-        var photos = PhotoCollection()
         let photoIndex = photos.items.firstIndex(where: { $0.id == self.photo.id })
         if let photoIndex = photoIndex {
             photos.items[photoIndex].firstName = self.newImageFirstName

@@ -30,7 +30,7 @@ struct ContentView: View {
                 LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                     ForEach(photos.items.sorted()) { photo in
                         NavigationLink(
-                            destination: PhotoDetails(photo: photo),
+                            destination: PhotoDetails(photo: photo).environmentObject(photos),
                             label: {
                                 HStack {
                                     ZStack(alignment: .bottomLeading) {

@@ -8,7 +8,7 @@ Day 77 Challenge from Hacking With SwiftUI
 * Add biometric authentication / unlocking
 * -Add detailed view-
 * -Allow editing of name-
-* Fix renaming
+* -Fix renaming-
 * -Add finding location-
 * -Add displaying location-
 * -Make sure name is not too long-
