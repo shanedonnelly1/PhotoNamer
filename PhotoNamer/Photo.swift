@@ -60,6 +60,11 @@ struct Photo: Codable, Identifiable {
         let _ = imageSaver.writeToSecureDirectory(uiImage: uiImage, name: id.uuidString)
     }
     
+    mutating func deleteFromSecureDirectory() {
+        let imageSaver = ImageSaver()
+        let _ = imageSaver.deleteFromSecureDirectory(name: id.uuidString)
+    }
+    
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]

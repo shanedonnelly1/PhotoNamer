@@ -56,6 +56,16 @@ struct PhotoDetails: View {
             }
             Spacer()
         }
+        Button("Delete \(photo.firstName)") {
+            let photoIndex = photos.items.firstIndex(where: { $0.id == self.photo.id })
+            if let photoIndex = photoIndex {
+                // These two things should possibly be in the PhotoCollection
+                print("Delete photo file")
+                photos.items[photoIndex].deleteFromSecureDirectory()
+                print("Delete record of photo")
+                photos.items.remove(at: photoIndex)
+            }
+        }
         .navigationBarTitle(photo.firstName, displayMode: .inline)
         .navigationBarItems(trailing: Button("Edit") {
             self.showNameImage = true
@@ -70,11 +80,16 @@ struct PhotoDetails: View {
     }
     
     func saveImageName() {
+        // Can we directly edit the item in the list or do we need to use the index?
         let photoIndex = photos.items.firstIndex(where: { $0.id == self.photo.id })
         if let photoIndex = photoIndex {
             photos.items[photoIndex].firstName = self.newImageFirstName
             photos.items[photoIndex].lastName = self.newImageLastName
         }
+    }
+    
+    func deletePhoto() {
+        
     }
 }
 

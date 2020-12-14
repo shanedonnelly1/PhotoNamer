@@ -19,6 +19,20 @@ class ImageSaver: NSObject {
         return nil
     }
     
+    func deleteFromSecureDirectory(name: String) -> Bool {
+        let fileUrl = self.getDocumentsDirectory().appendingPathComponent("\(name).jpg")
+        let filePath = fileUrl.path
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: filePath) {
+            try? fileManager.removeItem(atPath: filePath)
+            // This doesn't look right
+            return true
+        } else {
+            print("File at path \(filePath) does not exist")
+            return false
+        }
+    }
+    
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]

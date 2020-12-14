@@ -49,7 +49,6 @@ struct ContentView: View {
                                 }
                             })
                     }
-                    
                 }
                 .padding(.horizontal)
             }
@@ -78,6 +77,7 @@ struct ContentView: View {
         guard let newImage = newImage else { return }
         var newPhoto = Photo(firstName: newImageFirstName, lastName: newImageLastName)
         newPhoto.writeToSecureDirectory(uiImage: newImage)
+        // Can we get back the image metadata? (CGImageSource maybe?  See https://youtu.be/Azhf_EfJIGM?t=463)
         if let location = self.locationFetcher.lastKnownLocation {
             newPhoto.setLocation(location: location)
         }
