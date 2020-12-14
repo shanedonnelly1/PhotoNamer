@@ -43,6 +43,7 @@ struct ContentView: View {
                                             .fontWeight(.black)
                                             .padding(8)
                                             .foregroundColor(.white)
+                                            .shadow(radius: 15)
                                             .offset(x: -5, y: -5)
                                     }
                                 }

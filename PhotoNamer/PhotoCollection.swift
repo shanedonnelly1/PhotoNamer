@@ -33,7 +33,9 @@ class PhotoCollection: ObservableObject {
 //        self.items = []
         
         guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load \(file) from bundle.")
+            print("No \(file) file, so starting with no images.")
+            self.items = []
+            return
         }
 
         let decoder = JSONDecoder()
